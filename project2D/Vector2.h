@@ -22,4 +22,6 @@ public:
 
 	void Print();//prints out the vector
 
+	float lerp();
+
 };

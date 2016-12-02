@@ -5,6 +5,7 @@ Vector2::Vector2(float a, float b)//constuctor takes two float arguments
 {
 	x = a;
 	y = b;
+
 }
 
 Vector2 Vector2::add(Vector2 & other)

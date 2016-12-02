@@ -10,13 +10,22 @@ Application2D::Application2D() {
 Application2D::~Application2D() {
 
 }
+class Player
+{
+	bool m_state;
+	Player() {};
+	Vector2 position;
 
+};
 bool Application2D::startup() {
+	
+	
 	
 	m_2dRenderer = new aie::Renderer2D();
 
 	m_texture = new aie::Texture("./textures/numbered_grid.tga");
-	m_shipTexture = new aie::Texture("./textures/ship.png");
+	m_shipTexture = new aie::Texture("./textures/genji.png");
+	m_shuriken = new aie::Texture("./texture/shuriken.png");
 
 	m_font = new aie::Font("./font/consolas.ttf", 32);
 
@@ -26,6 +35,8 @@ bool Application2D::startup() {
 	m_cameraY = 0;
 	m_timer = 0;
 	position = Vector2(600, 400);
+	position2 = Vector2(600, 400);
+	projectilePos = Vector2(600, 400);
 	return true;
 }
 
@@ -47,24 +58,42 @@ void Application2D::update(float deltaTime) {
 
 	// use arrow keys to move camera
 	if (input->isKeyDown(aie::INPUT_KEY_UP))
-		position.y += 500.0f * deltaTime;
-
+		position.y += 500.0f*deltaTime;
+	projectilePos.y += 500.0f*deltaTime;
+		
 	if (input->isKeyDown(aie::INPUT_KEY_DOWN))
 		position.y -= 500.0f * deltaTime;
+	projectilePos.y -= 500.0f*deltaTime;
 
 	if (input->isKeyDown(aie::INPUT_KEY_LEFT))
 		position.x -= 500.0f * deltaTime;
+	projectilePos.x -= 500.0f*deltaTime;
 
 	if (input->isKeyDown(aie::INPUT_KEY_RIGHT))
 		position.x += 500.0f * deltaTime;
+	projectilePos.x += 500.0f*deltaTime;
+
+	if (input->isKeyDown(aie::INPUT_KEY_W))
+		position2.y += 500.0f*deltaTime;
+
+	if (input->isKeyDown(aie::INPUT_KEY_S))
+		position2.y -= 500.0f*deltaTime;
+
+	if (input->isKeyDown(aie::INPUT_KEY_A))
+		position2.x -= 500.0f * deltaTime;
+
+	if (input->isKeyDown(aie::INPUT_KEY_D))
+		position2.x += 500.0f * deltaTime;
+		
 
 	// example of audio
 	if (input->wasKeyPressed(aie::INPUT_KEY_SPACE))
-		m_audio->play();
+		
 
 	// exit the application
 	if (input->isKeyDown(aie::INPUT_KEY_ESCAPE))
 		quit();
+
 }
 
 void Application2D::draw() {
@@ -74,7 +103,7 @@ void Application2D::draw() {
 
 	// set the camera position before we begin rendering
 	m_2dRenderer->setCameraPos(m_cameraX, m_cameraY);
-
+	
 	// begin drawing sprites
 	m_2dRenderer->begin();
 
@@ -86,8 +115,12 @@ void Application2D::draw() {
 	m_2dRenderer->setUVRect(0,0,1,1);
 	m_2dRenderer->drawSprite(m_shipTexture, position.x, position.y, 0, 0, 0, 1);
 
+	//draw bullet
+	m_2dRenderer->setUVRect(0, 0, 0, 1);
+	m_2dRenderer->drawSprite(m_shuriken, position.x, position.y, 0, 0, 0, 1);
+
 	// draw a thin line
-	m_2dRenderer->drawLine(position.x, position.y, 600, 400, 2, 1);
+	m_2dRenderer->drawLine(600, 400, position2.x, position2.y, 2, 1);
 
 	// draw a moving purple circle
 	m_2dRenderer->setRenderColour(1, 0, 1, 1);
