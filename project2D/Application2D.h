@@ -3,6 +3,7 @@
 #include "Application.h"
 #include "Renderer2D.h"
 #include "Audio.h"
+#include "Vector2.h"
 
 class Application2D : public aie::Application {
 public:
@@ -15,7 +16,7 @@ public:
 
 	virtual void update(float deltaTime);
 	virtual void draw();
-
+	Vector2 position;
 protected:
 
 	aie::Renderer2D*	m_2dRenderer;

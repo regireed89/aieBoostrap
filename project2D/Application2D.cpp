@@ -25,7 +25,7 @@ bool Application2D::startup() {
 	m_cameraX = 0;
 	m_cameraY = 0;
 	m_timer = 0;
-
+	position = Vector2(600, 400);
 	return true;
 }
 
@@ -47,16 +47,16 @@ void Application2D::update(float deltaTime) {
 
 	// use arrow keys to move camera
 	if (input->isKeyDown(aie::INPUT_KEY_UP))
-		m_cameraY += 500.0f * deltaTime;
+		position.y += 500.0f * deltaTime;
 
 	if (input->isKeyDown(aie::INPUT_KEY_DOWN))
-		m_cameraY -= 500.0f * deltaTime;
+		position.y -= 500.0f * deltaTime;
 
 	if (input->isKeyDown(aie::INPUT_KEY_LEFT))
-		m_cameraX -= 500.0f * deltaTime;
+		position.x -= 500.0f * deltaTime;
 
 	if (input->isKeyDown(aie::INPUT_KEY_RIGHT))
-		m_cameraX += 500.0f * deltaTime;
+		position.x += 500.0f * deltaTime;
 
 	// example of audio
 	if (input->wasKeyPressed(aie::INPUT_KEY_SPACE))
@@ -84,10 +84,10 @@ void Application2D::draw() {
 
 	// demonstrate spinning sprite
 	m_2dRenderer->setUVRect(0,0,1,1);
-	m_2dRenderer->drawSprite(m_shipTexture, 600, 400, 0, 0, m_timer, 1);
+	m_2dRenderer->drawSprite(m_shipTexture, position.x, position.y, 0, 0, 0, 1);
 
 	// draw a thin line
-	m_2dRenderer->drawLine(300, 300, 600, 400, 2, 1);
+	m_2dRenderer->drawLine(position.x, position.y, 600, 400, 2, 1);
 
 	// draw a moving purple circle
 	m_2dRenderer->setRenderColour(1, 0, 1, 1);
@@ -110,3 +110,5 @@ void Application2D::draw() {
 	// done drawing sprites
 	m_2dRenderer->end();
 }
+
+
