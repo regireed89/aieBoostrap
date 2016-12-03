@@ -10,17 +10,11 @@ Application2D::Application2D() {
 Application2D::~Application2D() {
 
 }
-class Player
-{
-	bool m_state;
-	Player() {};
-	Vector2 position;
-
-};
+  
 bool Application2D::startup() {
 
-
-
+	YaBoy = Player(Vector2(600,400));
+	
 	m_2dRenderer = new aie::Renderer2D();
 
 	m_texture = new aie::Texture("./textures/numbered_grid.tga");
@@ -60,49 +54,37 @@ void Application2D::update(float deltaTime) {
 
 	if (input->isKeyDown(aie::INPUT_KEY_UP))
 	{
-		position.y += 500.0f*deltaTime;
+		YaBoy.position.y += 500.0f*deltaTime;
 		projectilePos.y += 500.0f*deltaTime;
 	}
 
 	if (input->isKeyDown(aie::INPUT_KEY_DOWN))
 	{
-		position.y -= 500.0f * deltaTime;
+		YaBoy.position.y -= 500.0f * deltaTime;
 		projectilePos.y -= 500.0f*deltaTime;
 	}
 
 	if (input->isKeyDown(aie::INPUT_KEY_LEFT))
 	{
-		position.x -= 500.0f * deltaTime;
+		YaBoy.position.x -= 500.0f * deltaTime;
 		projectilePos.x -= 500.0f*deltaTime;
 	}
 
 	if (input->isKeyDown(aie::INPUT_KEY_RIGHT))
 	{
-
-		position.x += 500.0f * deltaTime;
+		YaBoy.position.x += 500.0f * deltaTime;
 		projectilePos.x += 500.0f*deltaTime;
 	}
 
-	if (input->isKeyDown(aie::INPUT_KEY_W))
-		position2.y += 500.0f*deltaTime;
 
-	if (input->isKeyDown(aie::INPUT_KEY_S))
-		position2.y -= 500.0f*deltaTime;
-
-	if (input->isKeyDown(aie::INPUT_KEY_A))
-		position2.x -= 500.0f * deltaTime;
-
-	if (input->isKeyDown(aie::INPUT_KEY_D))
-		position2.x += 500.0f * deltaTime;
 
 	// example of audio
 	if (input->isKeyDown(aie::INPUT_KEY_SPACE))
 	{
-
-		projectilePos.x += 100.0f;
-		m_shuriken = new aie::Texture("./textures/ninja.png");
-		m_2dRenderer->setUVRect(0, 0, 1, 1);
-		m_2dRenderer->drawSprite(m_shuriken, projectilePos.x, projectilePos.y, 100, 100, 0);
+		YaBoy.bullets[YaBoy.m_amao].position = YaBoy.position;
+		YaBoy.m_amao--;
+		YaBoy.bullets[YaBoy.m_amao].isFired = true;
+		YaBoy.position.x += 10.0f;
 	}
 
 	// exit the application
@@ -128,11 +110,18 @@ void Application2D::draw() {
 
 	// demonstrate spinning sprite
 	m_2dRenderer->setUVRect(0, 0, 1, 1);
-	m_2dRenderer->drawSprite(m_shipTexture, position.x, position.y, 0, 0, 0, 1);
+	m_2dRenderer->drawSprite(m_shipTexture, projectilePos.x, projectilePos.y, 0, 0, 0, 1);
 
 	//draw shuriken
-	m_2dRenderer->setUVRect(0, 0, 1, 1);
-	m_2dRenderer->drawSprite(m_shuriken, projectilePos.x, projectilePos.y, 100, 100, 0);
+	for (int i = 0; i < 100; i++)
+	{
+		if (YaBoy.bullets[i].isFired)
+		{
+			m_2dRenderer->setUVRect(0, 0, 1, 1);
+			m_2dRenderer->drawSprite(m_shuriken, YaBoy.bullets[i].position.x, YaBoy.bullets[i].position.y, 100, 100, 0);
+		}
+	}
+	
 
 	// draw a thin line
 	//m_2dRenderer->drawLine(600, 400, position2.x, position2.y, 2, 1);
