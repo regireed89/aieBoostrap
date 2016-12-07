@@ -76,8 +76,6 @@ void Application2D::update(float deltaTime) {
 		projectilePos.x += 500.0f*deltaTime;
 	}
 
-
-
 	// example of audio
 	if (input->isKeyDown(aie::INPUT_KEY_SPACE))
 	{
@@ -113,7 +111,7 @@ void Application2D::draw() {
 	m_2dRenderer->drawSprite(m_shipTexture, projectilePos.x, projectilePos.y, 0, 0, 0, 1);
 
 	//draw shuriken
-	for (int i = 0; i < 100; i++)
+	for (int i = 0; i < 1000; i++)
 	{
 		if (YaBoy.bullets[i].isFired)
 		{
@@ -128,15 +126,15 @@ void Application2D::draw() {
 
 	// draw a moving purple circle
 	m_2dRenderer->setRenderColour(1, 0, 1, 1);
-	m_2dRenderer->drawCircle(sin(m_timer) * 100 + 600, 150, 50);
+	//m_2dRenderer->drawCircle(sin(m_timer) * 100 + 600, 150, 50);
 
 	// draw a rotating red box
 	m_2dRenderer->setRenderColour(1, 0, 0, 1);
-	m_2dRenderer->drawBox(600, 500, 60, 20, m_timer);
+	//m_2dRenderer->drawBox(600, 500, 60, 20, m_timer);
 
 	// draw a slightly rotated sprite with no texture, coloured yellow
 	m_2dRenderer->setRenderColour(1, 1, 0, 1);
-	m_2dRenderer->drawSprite(nullptr, 400, 400, 50, 50, 3.14159f * 0.25f, 1);
+	//m_2dRenderer->drawSprite(nullptr, 400, 400, 50, 50, 3.14159f * 0.25f, 1);
 
 	// output some text, uses the last used colour
 	char fps[32];
