@@ -2,6 +2,7 @@
 #include "Texture.h" 
 #include "Font.h" 
 #include "Input.h" 
+
  
 Application2D::Application2D() { 
 	 
@@ -82,7 +83,7 @@ void Application2D::update(float deltaTime) {
 		YaBoy.bullets[YaBoy.m_amao].position = YaBoy.position;
 		YaBoy.m_amao--; 
  		YaBoy.bullets[YaBoy.m_amao].isFired = true;				
-		YaBoy.position.x += 100.0f;
+		YaBoy.position.x += 10.0f;
 		m_audio->play();
 	} 
 	 
