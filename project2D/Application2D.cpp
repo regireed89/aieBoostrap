@@ -5,125 +5,135 @@
 using namespace std;
 
 
- 
-Application2D::Application2D() { 
-	 
-} 
- 
-Application2D::~Application2D() { 
-	  
-} 
-   
-bool Application2D::startup() {  
-	 
-	YaBoy = Player(Vector2(600,400)); 
-	 
-	m_2dRenderer = new aie::Renderer2D(); 
-	 
-	m_texture = new aie::Texture("./textures/numbered_grid.tga"); 
-	m_shipTexture = new aie::Texture("./textures/genji.png"); 
+
+Application2D::Application2D() {
+
+}
+
+Application2D::~Application2D() {
+
+}
+
+bool Application2D::startup() {
+
+	YaBoy = Player(Vector2(600, 400));
+
+	m_2dRenderer = new aie::Renderer2D();
+
+	m_texture = new aie::Texture("./textures/numbered_grid.tga");
+	m_shipTexture = new aie::Texture("./textures/genji.png");
 	m_shuriken = new aie::Texture("./textures/ninja.png");
-	 
-	m_font = new aie::Font("./font/consolas.ttf", 32); 
-	 
-	m_audio = new aie::Audio("./audio/powerup.wav"); 
-	 
-	m_cameraX = 0; 
-	m_cameraY = 0; 
-	m_timer = 0; 
-	position = Vector2(600, 400); 
-	position2 = Vector2(600, 400); 
-	projectilePos = Vector2(600, 400); 
-	return true; 
-} 
- 
-void Application2D::shutdown() { 
-	 
-	delete m_audio; 
-	delete m_font; 
-	delete m_texture; 
-	delete m_shipTexture;  
-	delete m_2dRenderer; 
-} 
- 
-void Application2D::update(float deltaTime) { 
-	 
-	m_timer += deltaTime; 
-	 
+	m_backGround = new aie::Texture("./textures/original.png");
+
+	m_font = new aie::Font("./font/consolas.ttf", 32);
+	m_audio = new aie::Audio("./audio/powerup.wav");
+
+	m_cameraX = 0;
+	m_cameraY = 0;
+	m_timer = 0;
+	position = Vector2(600, 400);
+	position2 = Vector2(600, 400);
+	projectilePos = Vector2(600, 400);
+	return true;
+}
+
+void Application2D::shutdown() {
+
+	delete m_audio;
+	delete m_font;
+	delete m_texture;
+	delete m_shipTexture;
+	delete m_2dRenderer;
+	delete m_backGround;
+}
+
+void Application2D::update(float deltaTime) {
+
+	m_timer += deltaTime;
+
 	// input example 
-	aie::Input* input = aie::Input::getInstance(); 
-	 
+	aie::Input* input = aie::Input::getInstance();
+
 	// use arrow keys to move camera 
-	 
+
 	if (input->isKeyDown(aie::INPUT_KEY_UP))
 	{
 		YaBoy.position.y += 500.0f*deltaTime;
 		projectilePos.y += 500.0f*deltaTime;
 	}
-	  
-	if (input->isKeyDown(aie::INPUT_KEY_DOWN))  
-	{ 
-		YaBoy.position.y -= 500.0f * deltaTime; 
-		projectilePos.y -= 500.0f*deltaTime; 
-	} 
-	 
-	if (input->isKeyDown(aie::INPUT_KEY_LEFT)) 
-	{ 
-		YaBoy.position.x -= 500.0f * deltaTime; 
-		projectilePos.x -= 500.0f*deltaTime; 
-	} 
-	 
-	if (input->isKeyDown(aie::INPUT_KEY_RIGHT)) 
-	{ 
-		YaBoy.position.x += 500.0f * deltaTime; 
-		projectilePos.x += 500.0f*deltaTime; 
-	} 
-	 
+
+	if (input->isKeyDown(aie::INPUT_KEY_DOWN))
+	{
+		YaBoy.position.y -= 500.0f * deltaTime;
+		projectilePos.y -= 500.0f*deltaTime;
+	}
+
+	if (input->isKeyDown(aie::INPUT_KEY_LEFT))
+	{
+		YaBoy.position.x -= 500.0f * deltaTime;
+		projectilePos.x -= 500.0f*deltaTime;
+	}
+
+	if (input->isKeyDown(aie::INPUT_KEY_RIGHT))
+	{
+		YaBoy.position.x += 500.0f * deltaTime;
+		projectilePos.x += 500.0f*deltaTime;
+	}
+
 	// example of audio 
-	if (input->wasKeyPressed(aie::INPUT_KEY_SPACE)) 
-	{ 
+	if (input->wasKeyPressed(aie::INPUT_KEY_SPACE))
+	{
 		YaBoy.bullets[YaBoy.m_amao].position = YaBoy.position;
-		YaBoy.m_amao--; 
- 		YaBoy.bullets[YaBoy.m_amao].isFired = true;				
-		YaBoy.position.x += 10.0f;
+		YaBoy.m_amao--;
+		YaBoy.bullets[YaBoy.m_amao].isFired = true;
+		YaBoy.position.x;
 		m_audio->play();
-	} 
-	 
+	}
+
+	
+	
+
 	// exit the application 
-	if (input->isKeyDown(aie::INPUT_KEY_ESCAPE)) 
-		quit(); 
-	 
-} 
- 
-void Application2D::draw() { 
-	; 
+	if (input->isKeyDown(aie::INPUT_KEY_ESCAPE))
+		quit();
+
+}
+
+void Application2D::draw() {
+	;
 	// wipe the screen to the background colour 
-	clearScreen(); 
-	 
+	clearScreen();
+
+	m_2dRenderer->setUVRect(0, 0, 1, 1);
+	m_2dRenderer->drawSprite(m_backGround, 630, 300, 0, 0, 0, 1);
+
 	// set the camera position before we begin rendering 
-	m_2dRenderer->setCameraPos(m_cameraX, m_cameraY); 
-	 
+	m_2dRenderer->setCameraPos(m_cameraX, m_cameraY);
+
 	// begin drawing sprites  
-	m_2dRenderer->begin(); 
-	 
+	m_2dRenderer->begin();
+
 	// demonstrate animation 
-	m_2dRenderer->setUVRect(int(m_timer) % 8 / 8.0f, 0, 1.f / 8, 1.f / 8); 
-	m_2dRenderer->drawSprite(m_texture, 200, 200, 50, 50); 
-	 
-	// demonstrate spinning sprite 
-	m_2dRenderer->setUVRect(0, 0, 1, 1); 
-	m_2dRenderer->drawSprite(m_shipTexture, projectilePos.x, projectilePos.y, 0, 0, 0, 1); 
-	  
+	m_2dRenderer->setUVRect(int(m_timer) % 8 / 8.0f, 0, 1.f / 8, 1.f / 8);
+	m_2dRenderer->drawSprite(m_texture, 200, 200, 50, 50);
+
 	//draw shuriken  
-	for (int i = 0; i < 1000; i++) 
-	{  
-		if (YaBoy.bullets[i].isFired) 
-		{ 
-			m_2dRenderer->setUVRect(0, 0, 1, 1); 
+	for (int i = 0; i < 100; i++)
+	{
+
+		if (YaBoy.bullets[i].isFired)
+		{
+			m_2dRenderer->setUVRect(0, 0, 1, 1);
 			m_2dRenderer->drawSprite(m_shuriken, YaBoy.bullets[i].position.x, YaBoy.bullets[i].position.y, 100, 100, 0);
 		}
 	}
-	
+
+	// demonstrate spinning sprite 
+	m_2dRenderer->setUVRect(0, 0, 1, 1);
+	m_2dRenderer->drawSprite(m_shipTexture, projectilePos.x, projectilePos.y, 0, 0, 0, 1);
+
+
+
 
 	// draw a thin line
 	//m_2dRenderer->drawLine(600, 400, position2.x, position2.y, 2, 1);
@@ -145,31 +155,53 @@ void Application2D::draw() {
 	sprintf_s(fps, 32, "FPS: %i", getFPS());
 	m_2dRenderer->drawText(m_font, fps, 0, 720 - 32);
 	m_2dRenderer->drawText(m_font, "Press Space to WHOOP SOME ASS!!!!!", 0, 720 - 64);
-	
+
 	// done drawing sprites
 	m_2dRenderer->end();
 }
 
 #include <fstream>
 
-void Application2D::PlayerState()
+Vector2 Application2D::Move(Vector2 &myVec)
 {
-	char data2;
-	string data;
-	ifstream *file = new ifstream("GameState.yaboy");
+	
+
+	
+
+
+		return Vector2();
+}
+
+void Application2D::playerState()
+{
+
+	fstream *file = new fstream();
+	file->open("GameState.yaboy", ios_base::out);
+	if (file->is_open())
+	{
+		*file << "its yaboy" << endl;
+	}
 	file->close();
-	
-	
-
-
-
-
-
-
-
-
 
 }
+
+//void Application2D::getPlayer()
+//{
+//	char data2;
+//	string data;
+//	fstream*file = new fstream("GameState.yaboy");
+//	file->close();
+//	if (file->is_open())
+//	{
+//		file >> data;
+//		file->get(data);
+//	}
+//	while (getline(file, data))
+//	{
+//		cout << data << endl;
+//	}
+//	file->close();
+//}
 
 
 

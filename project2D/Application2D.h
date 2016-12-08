@@ -51,8 +51,10 @@ public:
 	Vector2 position;
 	Vector2 position2;
 	Vector2 projectilePos;
+	Vector2 Move();
 	Player YaBoy;
-	void PlayerState();
+	void playerState();
+	void getPlayer();
 
 protected:
 
@@ -60,6 +62,7 @@ protected:
 	aie::Texture*		m_texture;
 	aie::Texture*		m_shipTexture;
 	aie::Texture*       m_shuriken;
+	aie::Texture*		m_backGround;
 	aie::Font*			m_font;
 	aie::Audio*			m_audio;
 
