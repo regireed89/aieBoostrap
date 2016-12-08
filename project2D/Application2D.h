@@ -4,6 +4,7 @@
 #include "Renderer2D.h"
 #include "Audio.h"
 #include "Vector2.h"
+#include <fstream>
 
 class Bullets
 {
@@ -51,6 +52,7 @@ public:
 	Vector2 position2;
 	Vector2 projectilePos;
 	Player YaBoy;
+	void PlayerState();
 
 protected:
 

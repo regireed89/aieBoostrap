@@ -2,6 +2,8 @@
 #include "Texture.h" 
 #include "Font.h" 
 #include "Input.h" 
+using namespace std;
+
 
  
 Application2D::Application2D() { 
@@ -147,5 +149,27 @@ void Application2D::draw() {
 	// done drawing sprites
 	m_2dRenderer->end();
 }
+
+#include <fstream>
+
+void Application2D::PlayerState()
+{
+	char data2;
+	string data;
+	ifstream *file = new ifstream("GameState.yaboy");
+	file->close();
+	
+	
+
+
+
+
+
+
+
+
+
+}
+
 
 
