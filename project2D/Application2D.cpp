@@ -26,7 +26,7 @@ bool Application2D::startup() {
 	m_backGround = new aie::Texture("./textures/original.png");
 
 	m_font = new aie::Font("./font/consolas.ttf", 32);
-	m_audio = new aie::Audio("./audio/powerup.wav");
+	m_audio = new aie::Audio("./audio/Nyan.mp3");
 
 	m_cameraX = 0;
 	m_cameraY = 0;
@@ -162,14 +162,9 @@ void Application2D::draw() {
 
 #include <fstream>
 
-Vector2 Application2D::Move(Vector2 &myVec)
+Vector2 Application2D::Move()
 {
-	
-
-	
-
-
-		return Vector2();
+		return Vector2(); 
 }
 
 void Application2D::playerState()
@@ -203,5 +198,10 @@ void Application2D::playerState()
 //	file->close();
 //}
 
+bool Agent::AddForce(Vector2 force, float dt)
+{
+	Agent* Player = new Agent(Vector2(640, 360), Vector2(1, 0));
+	Player->position = (Player->position.add(Player->velocity)).ScalarMult(dt);
 
-
+	return false;
+}

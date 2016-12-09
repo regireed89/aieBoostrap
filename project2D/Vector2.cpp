@@ -25,10 +25,10 @@ Vector2 Vector2::subtract(Vector2 &other)//function to subtract one vector from 
 	return Vector2(a, b);
 }
 
-Vector2 Vector2::ScalarMult(Vector2 &mult)//function to multiply 2d vectors
+Vector2 Vector2::ScalarMult(float &mult)//function to multiply 2d vectors
 {
-	float a = this->x * mult.x;
-	float b = this->y * mult.y;
+	float a = this->x * mult;
+	float b = this->y * mult;
 
 	return Vector2(a, b);
 }

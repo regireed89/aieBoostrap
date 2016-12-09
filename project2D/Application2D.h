@@ -69,3 +69,16 @@ protected:
 	float m_cameraX, m_cameraY;
 	float m_timer;
 };
+
+class Agent
+{
+public:
+	Agent() {};
+	Agent(Vector2 position, Vector2 velocity);
+	bool AddForce(Vector2 force,float );
+private:
+	Vector2 position;
+	Vector2 velocity;
+	float mass;
+
+};
