@@ -1,23 +1,21 @@
+#include <iostream>
 #include "Vector2.h"
+using namespace std;
+
 
 Vector2::Vector2() {};//default constructor
 Vector2::Vector2(float a, float b)//constuctor takes two float arguments
 {
 	x = a;
 	y = b;
-
 }
 
-Vector2 Vector2::add(Vector2 & other)
+Vector2 Vector2::operator +(Vector2 &other)//function to add two vectors together
 {
-	float a = this->x + other.x;
-	float b = this->y + other.y;
-
-	return Vector2(a, b);
+	return Vector2(x + other.x, y + other.y);
 }
 
-
-Vector2 Vector2::subtract(Vector2 &other)//function to subtract one vector from another
+Vector2 Vector2::operator -(Vector2 &other)//function to subtract one vector from another
 {
 	float a = this->x - other.x;
 	float b = this->y - other.y;
@@ -25,20 +23,16 @@ Vector2 Vector2::subtract(Vector2 &other)//function to subtract one vector from 
 	return Vector2(a, b);
 }
 
-Vector2 Vector2::ScalarMult(Vector2 &mult)//function to multiply 2d vectors
+Vector2 Vector2::operator *(const float &mult)//function to multiply 2d vectors
 {
-	float a = this->x * mult.x;
-	float b = this->y * mult.y;
-
-	return Vector2(a, b);
+	return Vector2(x*mult, y*mult);
 }
 
 float Vector2::Magnitude()//function to find the magnitude of a 2d vector
 {
-	//float a = sqrt(x*x + y*y);
+	float a = sqrt((x*x) + (y*y));
 
-
-	return 0;
+	return a;
 }
 
 Vector2 Vector2::Normalize()//function to normalize a vector
@@ -55,5 +49,12 @@ float Vector2::DotProduct(Vector2 &other)//function to find the dotproduct of tw
 	float c = a + b;
 
 	return c;
+}
+
+void Vector2::Print()//prints out the vector
+{
+	cout << "2D Vector" << endl;
+	cout << "x=" << x << "y=" << y << endl;
+	cout << "____" << endl;
 }
  
