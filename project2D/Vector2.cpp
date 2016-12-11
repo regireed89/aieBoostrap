@@ -23,18 +23,19 @@ Vector2 Vector2::operator -(Vector2 &other)//function to subtract one vector fro
 	return Vector2(a, b);
 }
 
-<<<<<<< HEAD
+
 Vector2 Vector2::operator *(const float &mult)//function to multiply 2d vectors
 {
 	return Vector2(x*mult, y*mult);
-=======
+}
+
 Vector2 Vector2::ScalarMult(float &mult)//function to multiply 2d vectors
 {
 	float a = this->x * mult;
 	float b = this->y * mult;
 
 	return Vector2(a, b);
->>>>>>> origin/master
+
 }
 
 float Vector2::Magnitude()//function to find the magnitude of a 2d vector
@@ -66,4 +67,3 @@ void Vector2::Print()//prints out the vector
 	cout << "x=" << x << "y=" << y << endl;
 	cout << "____" << endl;
 }
- 

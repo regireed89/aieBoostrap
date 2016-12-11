@@ -1,4 +1,5 @@
 #include "Application2D.h" 
+#include "Vector2.h"
 #include "Texture.h" 
 #include "Font.h" 
 #include "Input.h" 
@@ -90,8 +91,8 @@ void Application2D::update(float deltaTime) {
 		m_audio->play();
 	}
 
-	
-	
+
+
 
 	// exit the application 
 	if (input->isKeyDown(aie::INPUT_KEY_ESCAPE))
@@ -164,7 +165,7 @@ void Application2D::draw() {
 
 Vector2 Application2D::Move()
 {
-		return Vector2(); 
+	return Vector2();
 }
 
 void Application2D::playerState()
@@ -200,8 +201,12 @@ void Application2D::playerState()
 
 bool Agent::AddForce(Vector2 force, float dt)
 {
+	force = Vector2(5, 0);
+
 	Agent* Player = new Agent(Vector2(640, 360), Vector2(1, 0));
-	Player->position = (Player->position.add(Player->velocity)).ScalarMult(dt);
+	Player->position = (Player->position + Player->velocity)*dt;
+	Player->velocity = (Player->velocity + force)*dt;
+
 
 	return false;
 }
