@@ -28,7 +28,7 @@ bool Application2D::startup() {
 	m_backGround = new aie::Texture("./textures/original.png");
 
 	m_font = new aie::Font("./font/consolas.ttf", 32);
-
+	   
 	m_cameraX = 0;
 	m_cameraY = 0;
 	m_timer = 0;
@@ -55,7 +55,7 @@ void Application2D::update(float deltaTime) {
 	// input example 
 	aie::Input* input = aie::Input::getInstance();
 
-	// use arrow keys to move camera 
+	// use arrow keys to move player
 
 	if (input->isKeyDown(aie::INPUT_KEY_UP))
 	{
