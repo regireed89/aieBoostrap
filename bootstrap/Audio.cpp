@@ -15,7 +15,7 @@ Audio::Audio(const char* filename)
 }
 
 Audio::~Audio() {
-	m_soundManager->releaseSound(this);
+//	m_soundManager->releaseSound(this);
 }
 
 void Audio::play() {

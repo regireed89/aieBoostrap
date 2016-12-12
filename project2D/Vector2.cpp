@@ -29,14 +29,7 @@ Vector2 Vector2::operator *(const float &mult)//function to multiply 2d vectors
 	return Vector2(x*mult, y*mult);
 }
 
-Vector2 Vector2::ScalarMult(float &mult)//function to multiply 2d vectors
-{
-	float a = this->x * mult;
-	float b = this->y * mult;
 
-	return Vector2(a, b);
-
-}
 
 float Vector2::Magnitude()//function to find the magnitude of a 2d vector
 {

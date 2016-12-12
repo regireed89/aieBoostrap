@@ -17,7 +17,8 @@ Application2D::~Application2D() {
 
 bool Application2D::startup() {
 
-	YaBoy = Player(Vector2(600, 400));
+	Shiruken = Player(Vector2(600, 400));
+	Regi = Agent(Vector2(600, 400), Vector2(1, 0));
 
 	m_2dRenderer = new aie::Renderer2D();
 
@@ -27,14 +28,13 @@ bool Application2D::startup() {
 	m_backGround = new aie::Texture("./textures/original.png");
 
 	m_font = new aie::Font("./font/consolas.ttf", 32);
-	m_audio = new aie::Audio("./audio/Nyan.mp3");
 
 	m_cameraX = 0;
 	m_cameraY = 0;
 	m_timer = 0;
-	position = Vector2(600, 400);
-	position2 = Vector2(600, 400);
-	projectilePos = Vector2(600, 400);
+	
+	playerPos = Vector2(600, 400);
+	
 	return true;
 }
 
@@ -51,7 +51,7 @@ void Application2D::shutdown() {
 void Application2D::update(float deltaTime) {
 
 	m_timer += deltaTime;
-
+	
 	// input example 
 	aie::Input* input = aie::Input::getInstance();
 
@@ -59,40 +59,36 @@ void Application2D::update(float deltaTime) {
 
 	if (input->isKeyDown(aie::INPUT_KEY_UP))
 	{
-		YaBoy.position.y += 500.0f*deltaTime;
-		projectilePos.y += 500.0f*deltaTime;
+		Shiruken.position.y += 500.0f*deltaTime;
+		Regi.position.y += 500.0f*deltaTime;
 	}
 
 	if (input->isKeyDown(aie::INPUT_KEY_DOWN))
 	{
-		YaBoy.position.y -= 500.0f * deltaTime;
-		projectilePos.y -= 500.0f*deltaTime;
+		Shiruken.position.y -= 500.0f * deltaTime;
+		Regi.position.y -= 500.0f*deltaTime;
 	}
 
 	if (input->isKeyDown(aie::INPUT_KEY_LEFT))
 	{
-		YaBoy.position.x -= 500.0f * deltaTime;
-		projectilePos.x -= 500.0f*deltaTime;
+		Shiruken.position.x -= 500.0f * deltaTime;
+		Regi.position.x -= 500.0f*deltaTime;
 	}
 
 	if (input->isKeyDown(aie::INPUT_KEY_RIGHT))
 	{
-		YaBoy.position.x += 500.0f * deltaTime;
-		projectilePos.x += 500.0f*deltaTime;
+		Shiruken.position.x += 500.0f * deltaTime;
+		Regi.position.x += 500.0f*deltaTime;
 	}
 
 	// example of audio 
 	if (input->wasKeyPressed(aie::INPUT_KEY_SPACE))
 	{
-		YaBoy.bullets[YaBoy.m_amao].position = YaBoy.position;
-		YaBoy.m_amao--;
-		YaBoy.bullets[YaBoy.m_amao].isFired = true;
-		YaBoy.position.x;
-		m_audio->play();
+		Shiruken.bullets[Shiruken.m_amao].position = Shiruken.position;
+		Shiruken.m_amao--;
+		Shiruken.bullets[Shiruken.m_amao].isFired = true;
+		Shiruken.position.x;
 	}
-
-
-
 
 	// exit the application 
 	if (input->isKeyDown(aie::INPUT_KEY_ESCAPE))
@@ -122,16 +118,16 @@ void Application2D::draw() {
 	for (int i = 0; i < 100; i++)
 	{
 
-		if (YaBoy.bullets[i].isFired)
+		if (Shiruken.bullets[i].isFired)
 		{
 			m_2dRenderer->setUVRect(0, 0, 1, 1);
-			m_2dRenderer->drawSprite(m_shuriken, YaBoy.bullets[i].position.x, YaBoy.bullets[i].position.y, 100, 100, 0);
+			m_2dRenderer->drawSprite(m_shuriken, Shiruken.bullets[i].position.x, Shiruken.bullets[i].position.y, 100, 100, 0);
 		}
 	}
 
 	// demonstrate spinning sprite 
 	m_2dRenderer->setUVRect(0, 0, 1, 1);
-	m_2dRenderer->drawSprite(m_shipTexture, projectilePos.x, projectilePos.y, 0, 0, 0, 1);
+	m_2dRenderer->drawSprite(m_shipTexture,Regi.position.x, Regi.position.y, 0, 0, 0, 1);
 
 
 
@@ -163,10 +159,6 @@ void Application2D::draw() {
 
 #include <fstream>
 
-Vector2 Application2D::Move()
-{
-	return Vector2();
-}
 
 void Application2D::playerState()
 {
@@ -201,12 +193,9 @@ void Application2D::playerState()
 
 bool Agent::AddForce(Vector2 force, float dt)
 {
-	force = Vector2(5, 0);
 
-	Agent* Player = new Agent(Vector2(640, 360), Vector2(1, 0));
-	Player->position = (Player->position + Player->velocity)*dt;
-	Player->velocity = (Player->velocity + force)*dt;
-
+	position = (position + velocity)*dt;
+	velocity = (velocity + force)*dt;
 
 	return false;
 }

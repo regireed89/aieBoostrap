@@ -27,12 +27,28 @@ public:
 		{
 			bullets[i] = Bullets();
 		}
-
-
 	}
 	int m_amao;
 	Vector2 position;
 	Bullets bullets[100];
+};
+
+
+class Agent
+{
+public:
+	Agent() {};
+	Agent(Vector2 pos, Vector2 velo) 
+	{
+		position = pos;
+		velocity = velo;
+	}
+	bool AddForce(Vector2 force, float dt);
+
+	Vector2 position;
+	Vector2 velocity;
+	float mass;
+
 };
 
 
@@ -48,13 +64,13 @@ public:
 	virtual void update(float deltaTime);
 	virtual void draw();
 
-	Vector2 position;
-	Vector2 position2;
-	Vector2 projectilePos;
-	Vector2 Move();
-	Player YaBoy;
+	
+	
+	Vector2 playerPos;
+	Player Shiruken;
+	Agent Regi;
 	void playerState();
-	void getPlayer();
+	
 
 protected:
 
@@ -70,15 +86,3 @@ protected:
 	float m_timer;
 };
 
-class Agent
-{
-public:
-	Agent() {};
-	Agent(Vector2 position, Vector2 velocity);
-	bool AddForce(Vector2 force, float);
-private:
-	Vector2 position;
-	Vector2 velocity;
-	float mass;
-
-};
