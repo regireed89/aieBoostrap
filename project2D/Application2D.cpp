@@ -64,11 +64,13 @@ void Application2D::update(float deltaTime) {
 		Shiruken.position.y += 500.0f*deltaTime;
 		Regi.position.y += 500.0f*deltaTime;
 	}
+	
 
 	if (input->isKeyDown(aie::INPUT_KEY_DOWN))
 	{
 		Shiruken.position.y -= 500.0f * deltaTime;
 		Regi.position.y -= 500.0f*deltaTime;
+		
 	}
 
 	if (input->isKeyDown(aie::INPUT_KEY_LEFT))
@@ -90,6 +92,7 @@ void Application2D::update(float deltaTime) {
 		Shiruken.m_amao--;
 		Shiruken.bullets[Shiruken.m_amao].isFired = true;
 		Shiruken.position.x;
+		
 	}
 
 	// exit the application 
@@ -130,7 +133,7 @@ void Application2D::draw() {
 	// demonstrate spinning sprite 
 	m_2dRenderer->setUVRect(0, 0, 1, 1);
 	m_2dRenderer->drawSprite(m_shipTexture,Regi.position.x, Regi.position.y, 0, 0, 0, 1);
-	Regi.AddForce(Vector2(.001, 0), 1);
+	//Regi.AddForce(Vector2(.01, 0), 1);
 
 
 
