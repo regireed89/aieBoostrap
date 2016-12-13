@@ -40,7 +40,7 @@ bool Application2D::startup() {
 
 void Application2D::shutdown() {
 
-	delete m_audio;
+	
 	delete m_font;
 	delete m_texture;
 	delete m_shipTexture;
@@ -52,6 +52,8 @@ void Application2D::update(float deltaTime) {
 
 	m_timer += deltaTime;
 	
+	
+
 	// input example 
 	aie::Input* input = aie::Input::getInstance();
 
@@ -128,7 +130,7 @@ void Application2D::draw() {
 	// demonstrate spinning sprite 
 	m_2dRenderer->setUVRect(0, 0, 1, 1);
 	m_2dRenderer->drawSprite(m_shipTexture,Regi.position.x, Regi.position.y, 0, 0, 0, 1);
-
+	Regi.AddForce(Vector2(.001, 0), 1);
 
 
 
