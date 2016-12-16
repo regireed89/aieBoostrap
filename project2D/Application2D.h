@@ -69,6 +69,7 @@ public:
 	Vector2 playerPos;
 	Player Shiruken;
 	Agent Regi;
+	Agent shur;
 	void playerState();
 	
 

@@ -18,6 +18,7 @@ bool Application2D::startup() {
 
 	Shiruken = Player(Vector2(600, 400));
 	Regi = Agent(Vector2(600, 400), Vector2(1, 0));
+	shur = Agent(Vector2(600, 400), Vector2(1, 0));
 
 	m_2dRenderer = new aie::Renderer2D();
 
@@ -39,7 +40,7 @@ bool Application2D::startup() {
 
 void Application2D::shutdown() {
 
-	delete m_audio;
+	
 	delete m_font;
 	delete m_texture;
 	delete m_shipTexture;
@@ -51,6 +52,8 @@ void Application2D::update(float deltaTime) {
 
 	m_timer += deltaTime;
 	
+	
+
 	// input example 
 	aie::Input* input = aie::Input::getInstance();
 
@@ -60,24 +63,29 @@ void Application2D::update(float deltaTime) {
 	{
 		Shiruken.position.y += 500.0f*deltaTime;
 		Regi.position.y += 500.0f*deltaTime;
+		shur.position.y += 500.0f*deltaTime;
 	}
+	
 
 	if (input->isKeyDown(aie::INPUT_KEY_DOWN))
 	{
 		Shiruken.position.y -= 500.0f * deltaTime;
 		Regi.position.y -= 500.0f*deltaTime;
+		shur.position.y -= 500.0f*deltaTime;
 	}
 
 	if (input->isKeyDown(aie::INPUT_KEY_LEFT))
 	{
 		Shiruken.position.x -= 500.0f * deltaTime;
 		Regi.position.x -= 500.0f*deltaTime;
+		shur.position.x -= 500.0f*deltaTime;
 	}
 
 	if (input->isKeyDown(aie::INPUT_KEY_RIGHT))
 	{
 		Shiruken.position.x += 500.0f * deltaTime;
 		Regi.position.x += 500.0f*deltaTime;
+		shur.position.x += 500.0f*deltaTime;
 	}
 
 	// example of audio 
@@ -87,6 +95,7 @@ void Application2D::update(float deltaTime) {
 		Shiruken.m_amao--;
 		Shiruken.bullets[Shiruken.m_amao].isFired = true;
 		Shiruken.position.x;
+		
 	}
 
 	// exit the application 
@@ -120,14 +129,15 @@ void Application2D::draw() {
 		if (Shiruken.bullets[i].isFired)
 		{
 			m_2dRenderer->setUVRect(0, 0, 1, 1);
-			m_2dRenderer->drawSprite(m_shuriken, Shiruken.bullets[i].position.x, Shiruken.bullets[i].position.y, 100, 100, 0);
+			m_2dRenderer->drawSprite(m_shuriken, shur.position.x, shur.position.y, 100, 100, 0);
+			shur.AddForce(Vector2(1, 0), 0.1);
 		}
 	}
 
 	// demonstrate spinning sprite 
 	m_2dRenderer->setUVRect(0, 0, 1, 1);
 	m_2dRenderer->drawSprite(m_shipTexture,Regi.position.x, Regi.position.y, 0, 0, 0, 1);
-
+	
 
 
 
