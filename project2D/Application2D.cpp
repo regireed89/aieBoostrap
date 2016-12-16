@@ -1,5 +1,4 @@
 #include "Application2D.h" 
-#include "Vector2.h"
 #include "Texture.h" 
 #include "Font.h" 
 #include "Input.h" 
@@ -200,7 +199,7 @@ void Application2D::playerState()
 
 bool Agent::AddForce(Vector2 force, float dt)
 {
-
+	
 	position = (position + velocity)*dt;
 	velocity = (velocity + force)*dt;
 

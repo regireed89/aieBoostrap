@@ -3,7 +3,7 @@
 #include "Application.h"
 #include "Renderer2D.h"
 #include "Audio.h"
-#include "Vector2.h"
+#include "MathFuncsLib.h"
 #include <fstream>
 
 class Bullets
