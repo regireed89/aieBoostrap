@@ -20,8 +20,9 @@ class Player
 public:
 	bool m_state;
 	Player() {}
-	Player(Vector2 pos)
+	Player(Vector2 pos, Vector2 vel)
 	{
+		velocity = vel;
 		position = pos;
 		m_amao = 99;
 		for (int i = 0; i < 100; i++)
@@ -30,8 +31,10 @@ public:
 		}
 	}
 	int m_amao;
+	Vector2 velocity;
 	Vector2 position;
 	Bullets bullets[100];
+	bool Throw(Vector2 force, float dt);
 };
 
 

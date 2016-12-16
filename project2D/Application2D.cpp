@@ -17,7 +17,7 @@ Application2D::~Application2D() {
 
 bool Application2D::startup() {
 
-	Shiruken = Player(Vector2(600, 400));
+	Shiruken = Player(Vector2(600, 400), Vector2(1,0));
 	Regi = Agent(Vector2(600, 400), Vector2(1, 0));
 	
 	
@@ -94,6 +94,14 @@ void Application2D::update(float deltaTime) {
 		Shiruken.position.x;
 		
 	}
+	if (input->wasKeyPressed(aie::INPUT_KEY_F))
+	{
+
+		
+
+	}
+
+
 
 	// exit the application 
 	if (input->isKeyDown(aie::INPUT_KEY_ESCAPE))
@@ -126,11 +134,12 @@ void Application2D::draw() {
 		if (Shiruken.bullets[i].isFired)
 		{
 			m_2dRenderer->setUVRect(0, 0, 1, 1);
-			m_2dRenderer->drawSprite(m_shuriken, Shiruken.bullets[i].position.x, Shiruken.bullets[i].position.y, 100, 100, 0);
-		
+			m_2dRenderer->drawSprite(m_shuriken, Regi.position.x, Regi.position.y, 100, 100, 0);
+			Shiruken.Throw(Vector2(1, 0), 1);
 		}
 		
 	}
+	
 
 	// demonstrate spinning sprite 
 	m_2dRenderer->setUVRect(0, 0, 1, 1);
@@ -201,6 +210,14 @@ void Application2D::playerState()
 bool Agent::AddForce(Vector2 force, float dt)
 {
 	
+	position = (position + velocity)*dt;
+	velocity = (velocity + force)*dt;
+
+	return false;
+}
+
+bool Player::Throw(Vector2 force, float dt)
+{
 	position = (position + velocity)*dt;
 	velocity = (velocity + force)*dt;
 
