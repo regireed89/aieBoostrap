@@ -14,6 +14,7 @@ public:
 	bool isFired = false;
 
 };
+
 class Player
 {
 public:
@@ -34,7 +35,7 @@ public:
 };
 
 
-class Agent
+class Agent :public Bullets
 {
 public:
 	Agent() {};
@@ -48,6 +49,7 @@ public:
 	Vector2 position;
 	Vector2 velocity;
 	float mass;
+	
 
 };
 
@@ -66,10 +68,10 @@ public:
 
 	
 	
-	Vector2 playerPos;
+	
 	Player Shiruken;
 	Agent Regi;
-	Agent shur;
+	
 	void playerState();
 	
 

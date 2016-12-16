@@ -19,7 +19,8 @@ bool Application2D::startup() {
 
 	Shiruken = Player(Vector2(600, 400));
 	Regi = Agent(Vector2(600, 400), Vector2(1, 0));
-	shur = Agent(Vector2(600, 400), Vector2(1, 0));
+	
+	
 
 	m_2dRenderer = new aie::Renderer2D();
 
@@ -34,7 +35,6 @@ bool Application2D::startup() {
 	m_cameraY = 0;
 	m_timer = 0;
 	
-	playerPos = Vector2(600, 400);
 	
 	return true;
 }
@@ -54,7 +54,7 @@ void Application2D::update(float deltaTime) {
 	m_timer += deltaTime;
 	
 	
-
+	
 	// input example 
 	aie::Input* input = aie::Input::getInstance();
 
@@ -64,7 +64,6 @@ void Application2D::update(float deltaTime) {
 	{
 		Shiruken.position.y += 500.0f*deltaTime;
 		Regi.position.y += 500.0f*deltaTime;
-		shur.position.y += 500.0f*deltaTime;
 	}
 	
 
@@ -72,21 +71,18 @@ void Application2D::update(float deltaTime) {
 	{
 		Shiruken.position.y -= 500.0f * deltaTime;
 		Regi.position.y -= 500.0f*deltaTime;
-		shur.position.y -= 500.0f*deltaTime;
 	}
 
 	if (input->isKeyDown(aie::INPUT_KEY_LEFT))
 	{
 		Shiruken.position.x -= 500.0f * deltaTime;
 		Regi.position.x -= 500.0f*deltaTime;
-		shur.position.x -= 500.0f*deltaTime;
 	}
 
 	if (input->isKeyDown(aie::INPUT_KEY_RIGHT))
 	{
 		Shiruken.position.x += 500.0f * deltaTime;
 		Regi.position.x += 500.0f*deltaTime;
-		shur.position.x += 500.0f*deltaTime;
 	}
 
 	// example of audio 
@@ -130,9 +126,10 @@ void Application2D::draw() {
 		if (Shiruken.bullets[i].isFired)
 		{
 			m_2dRenderer->setUVRect(0, 0, 1, 1);
-			m_2dRenderer->drawSprite(m_shuriken, shur.position.x, shur.position.y, 100, 100, 0);
-			shur.AddForce(Vector2(1, 0), 0.1);
+			m_2dRenderer->drawSprite(m_shuriken, Shiruken.bullets[i].position.x, Shiruken.bullets[i].position.y, 100, 100, 0);
+		
 		}
+		
 	}
 
 	// demonstrate spinning sprite 
